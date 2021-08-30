@@ -8,7 +8,6 @@ event.on("ready-Pickup", (payload) => {
   }, 1000);
 });
 
-
 event.on("in-Transit", (payload) => {
   setTimeout(() => {
     console.log(`DRIVER: delivered  up ${payload.orderID}`);
