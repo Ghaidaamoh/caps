@@ -1,8 +1,8 @@
 "use strict";
 const event = require("../caps");
-let consoleSpy;
-require("../src/modules/driver");
-require("../src/modules/vendor");
+let consSpy;
+require("../src/models/driver");
+require("../src/models/vendor");
 
 let order = {
   store: "1-206-flowers",
@@ -14,24 +14,24 @@ let order = {
 describe("events handler tests", () => {
   beforeEach(() => {
     jest.runAllTimers();
-    consoleSpy = jest.spyOn(console, "log").mockImplementation();
+    consSpy = jest.spyOn(console, "log").mockImplementation();
   });
 
   afterEach(() => {
-    // restore console method to it's original state
-    consoleSpy.mockRestore();
+   
+    consSpy.mockRestore();
   });
 
   it("pick up handler test", () => {
     event.emit("pickup", order);
-    expect(consoleSpy).toHaveBeenCalled();
+    expect(consSpy).toHaveBeenCalled();
   });
   it("delivered handler test", () => {
     event.emit("delivered", order);
-    expect(consoleSpy).toHaveBeenCalled();
+    expect(consSpy).toHaveBeenCalled();
   });
   it("in-transit handler test", () => {
     event.emit("in-transit", order);
-    expect(consoleSpy).toHaveBeenCalled();
+    expect(consSpy).toHaveBeenCalled();
   });
 });
