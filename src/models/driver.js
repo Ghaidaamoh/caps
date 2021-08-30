@@ -1,7 +1,7 @@
 "use strict";
 const event = require("../../events");
 
-event.on("ready-Pickup", (payload) => {
+event.on("pickup", (payload) => {
   setTimeout(() => {
     console.log(`DRIVER: picked up ${payload.orderID}`);
     event.emit("in-transit", payload);

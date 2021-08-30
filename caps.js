@@ -4,30 +4,44 @@ require("./src/models/driver");
 require("./src/models/vendor");
 const event = require("./events");
 
-event.on("pickup", (payload) => {
+function pickup(payload){
   console.log("Event ", {
     event: "pickup",
     time: new Date().toISOString(),
     payload: payload,
-  });
-  event.emit("ready-Pickup", payload);
-});
+  })
 
-event.on("in-transit", (payload) => {
+
+  // event.emit("ready-Pickup", payload);
+}
+
+function intransit(payload){
   console.log("Event ", {
     event: "in-transit",
     time: new Date().toISOString(),
     payload: payload,
-  });
-  event.emit("in-Transit", payload);
-});
+  })
 
-event.on("delivered", (payload) => {
+
+event.emit("in-Transit", payload);
+}
+
+function delivered(payload){
   console.log("Event ", {
     event: "delivered",
     time: new Date().toISOString(),
     payload: payload,
-  });
+  })
   event.emit("finished", payload);
-});
-module.exports = event;
+}
+
+
+event.on("pickup", pickup) 
+event.on("in-transit",intransit)
+event.on("delivered",delivered )
+module.exports = {event,
+  pickup,
+  intransit,
+  delivered
+}
+
