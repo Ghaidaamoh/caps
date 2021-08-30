@@ -4,6 +4,7 @@ let consSpy;
 require("../src/models/driver");
 require("../src/models/vendor");
 
+
 let order = {
   store: "1-206-flowers",
   orderID: "e3669048-7313-427b-b6cc-74010ca1f8f0",
@@ -21,6 +22,7 @@ describe("events handler tests", () => {
    
     consSpy.mockRestore();
   });
+
 
   it("pick up handler test", () => {
     event.emit("pickup", order);
