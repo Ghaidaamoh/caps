@@ -1,47 +1,67 @@
 "use strict";
 
-require("./src/models/driver");
-require("./src/models/vendor");
-const event = require("./events");
+const { Socket } = require('socket.io-client');
 
-function pickup(payload){
-  console.log("Event ", {
-    event: "pickup",
-    time: new Date().toISOString(),
-    payload: payload,
+const port = 3000;
+const io = require('socket.io')(port) //http://localhost:3000
+const capSpace = io.of('/caps') //http://localhost:3000/caps
+
+
+capSpace.on('connection', socket => {
+  console.log('connected to cap');
+
+
+  socket.on('pickup', payload => {
+    console.log("Event ", {
+      event: "pickup",
+      time: new Date().toISOString(),
+      payload: payload,
+    })
+    capSpace.emit('pickup', payload)
   })
 
-
-  // event.emit("ready-Pickup", payload);
-}
-
-function intransit(payload){
-  console.log("Event ", {
-    event: "in-transit",
-    time: new Date().toISOString(),
-    payload: payload,
+  socket.on('in-transit', payload => {
+    console.log("Event ", {
+      event: "in-transit",
+      time: new Date().toISOString(),
+      payload: payload,
+    })
+    capSpace.emit('in-transit', payload)
   })
-
-
-event.emit("in-Transit", payload);
-}
-
-function delivered(payload){
+socket.on('delivered',payload =>{
   console.log("Event ", {
     event: "delivered",
     time: new Date().toISOString(),
     payload: payload,
   })
-  event.emit("finished", payload);
-}
+  capSpace.emit('delivered', payload)
+  
+})
+})
 
 
-event.on("pickup", pickup) 
-event.on("in-transit",intransit)
-event.on("delivered",delivered )
-module.exports = {event,
-  pickup,
-  intransit,
-  delivered
-}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
