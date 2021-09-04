@@ -1,0 +1,16 @@
+{
+  "name": "queuehub",
+  "version": "1.0.0",
+  "description": "",
+  "main": "queue.js",
+  "scripts": {
+    "start": "node queue.js",
+    "test": "jest --coverage"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "uuid": "^8.3.2"
+  }
+}
